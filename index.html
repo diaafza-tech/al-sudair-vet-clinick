@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مستوصف السدير البيطري</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f1f5f9;
+      color: #183247;
+    }
+    header {
+      background: linear-gradient(135deg,#12344d,#087e83);
+      color: white;
+      padding: 24px 18px;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 9px; font-size: 25px; }
+    header p { margin: 0; opacity: .9; }
+    main { max-width: 950px; margin: 24px auto; padding: 0 15px; }
+    .panel {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px #18324712;
+      margin-bottom: 18px;
+    }
+    h2 { margin-top: 0; font-size: 20px; }
+    label { display: block; margin: 14px 0 7px; }
+    input {
+      width: 100%; padding: 13px; border: 1px solid #cbd5e1;
+      border-radius: 9px; font-size: 16px;
+    }
+    button {
+      cursor: pointer; border: 0; border-radius: 9px;
+      padding: 12px 18px; background: #087e83;
+      color: white; font-size: 15px; margin-top: 15px;
+    }
+    button.secondary { background: #e2e8f0; color: #183247; }
+    .hidden { display: none !important; }
+    #message { margin-top: 14px; line-height: 1.8; overflow-wrap: anywhere; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
+      gap: 14px;
+    }
+    .tile {
+      background: #fff; border: 1px solid #e2e8f0;
+      padding: 20px 12px; border-radius: 14px;
+      text-align: center; font-weight: bold;
+    }
+    .tile span { display: block; font-size: 28px; margin-bottom: 10px; }
+    footer { text-align: center; color: #64748b; padding: 25px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🐾 مستوصف السدير البيطري</h1>
+  <p>نظام إدارة المستوصف والعيادة البيطرية</p>
+</header>
+
+<main>
+  <section id="loginPanel" class="panel">
+    <h2>تسجيل الدخول</h2>
+    <p>سجّل الدخول بحسابك المسجّل في Supabase.</p>
+
+    <label for="email">البريد الإلكتروني</label>
+    <input id="email" type="email" autocomplete="username"
+           placeholder="أدخل بريدك الإلكتروني">
+
+    <label for="password">كلمة المرور</label>
+    <input id="password" type="password"
+           autocomplete="current-password"
+           placeholder="أدخل كلمة المرور">
+
+    <button id="loginButton">دخول إلى المستوصف</button>
+    <div id="message" role="status"></div>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="panel">
+      <h2>أهلاً بك في المستوصف</h2>
+      <p id="welcome"></p>
+      <p id="roleText"></p>
+      <button id="logoutButton" class="secondary">تسجيل الخروج</button>
+    </div>
+
+    <div class="grid">
+      <div class="tile"><span>💊</span>الأدوية والمخزون</div>
+      <div class="tile"><span>📝</span>الوصفات الطبية</div>
+      <div class="tile"><span>🐄</span>العملاء والحيوانات</div>
+      <div class="tile"><span>💉</span>التلقيحات</div>
+      <div class="tile"><span>💰</span>المصروفات والحسابات</div>
+      <div class="tile"><span>🚚</span>النقل والخدمات</div>
+      <div class="tile"><span>📊</span>التقارير</div>
+    </div>
+    <div class="panel" style="margin-top:18px">
+      الأقسام الظاهرة حالياً هي واجهة أولية؛ وظائف إدخال البيانات
+      والجرد والحسابات سنضيفها في الخطوات التالية.
+    </div>
+  </section>
+</main>
+
+<footer>مستوصف السدير البيطري</footer>
+
+<script>
+  // ضع بيانات مشروعك هنا على جهازك أو في ملفك.
+  const SUPABASE_URL = "https://yuadbxdwhytckirrobla.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_znc_XShIA_lrHH04D49fpA_CqHkRdkR";
+
+  const loginPanel = document.getElementById("loginPanel");
+  const dashboard = document.getElementById("dashboard");
+  const message = document.getElementById("message");
+
+  let db = null;
+
+  function showMessage(text, error = false) {
+    message.textContent = text;
+    message.style.color = error ? "#b91c1c" : "#087e83";
+  }
+
+  function showLogin() {
+    loginPanel.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+  }
+
+  async function showDashboard(user) {
+    const { data, error } = await db
+      .from("profiles")
+      .select("full_name, role, active")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data || data.active !== true ||
+        !["admin", "assistant"].includes(data.role)) {
+      await db.auth.signOut();
+      throw new Error(
+        "الحساب غير مفعّل أو لم يُضف إلى جدول profiles."
+      );
+    }
+
+    loginPanel.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    document.getElementById("welcome").textContent =
+      data.full_name || user.email;
+    document.getElementById("roleText").textContent =
+      data.role === "admin" ? "الصلاحية: مسؤول" : "الصلاحية: مساعد";
+  }
+
+  async function startApp() {
+    if (SUPABASE_URL.includes("ضع_") ||
+        SUPABASE_KEY.includes("ضع_")) {
+      showMessage(
+        "أضف رابط مشروعك والمفتاح العام في الكود قبل تسجيل الدخول.",
+        true
+      );
+      return;
+    }
+
+    db = window.supabase.createClient(
+      SUPABASE_URL, SUPABASE_KEY
+    );
+
+    const { data, error } = await db.auth.getSession();
+    if (error) throw error;
+
+    if (data.session) await showDashboard(data.session.user);
+  }
+
+  document.getElementById("loginButton").addEventListener(
+    "click", async () => {
+      if (!db) {
+        showMessage("أكمل إعداد رابط المشروع والمفتاح العام أولاً.", true);
+        return;
+      }
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        showMessage("أدخل البريد الإلكتروني وكلمة المرور.", true);
+        return;
+      }
+
+      const button = document.getElementById("loginButton");
+      button.disabled = true;
+      showMessage("جارٍ تسجيل الدخول...");
+
+      try {
+        const { data, error } = await db.auth.signInWithPassword({
+          email, password
+        });
+        if (error) throw error;
+        await showDashboard(data.user);
+      } catch (error) {
+        showMessage("تعذّر الدخول: " + error.message, true);
+      } finally {
+        button.disabled = false;
+      }
+    }
+  );
+
+  document.getElementById("logoutButton").addEventListener(
+    "click", async () => {
+      if (db) await db.auth.signOut();
+      showLogin();
+      showMessage("تم تسجيل الخروج.");
+    }
+  );
+
+  startApp().catch(error => showMessage(error.message, true));
+</script>
+</body>
+</html>
