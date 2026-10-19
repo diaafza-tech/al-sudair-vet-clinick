@@ -353,6 +353,92 @@ footer {
       }
       @page { size: A4; margin: 15mm; }
     }
+    /* تصميم جدول الأدوية والمخزون */
+#inventoryArea {
+  background: #10283d !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #29485e;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+#inventoryArea .inv-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#inventoryArea .inv-nav button {
+  background: #193b52;
+  color: #ffffff;
+  border: 1px solid #31556b;
+  border-radius: 9px;
+  padding: 12px;
+  text-align: right;
+}
+
+#inventoryArea .inv-nav button:hover {
+  background: #176b68;
+}
+
+#inventoryArea .inv-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: separate;
+  border-spacing: 3px;
+  color: #ffffff;
+}
+
+#inventoryArea .inv-table th {
+  background: #176b68;
+  color: #ffffff;
+  padding: 13px 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#inventoryArea .inv-table td {
+  background: #1b3b53;
+  color: #f1f5f9;
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #31556b;
+}
+
+#inventoryArea .inv-table tbody tr:hover td {
+  background: #244b62;
+}
+
+#inventoryArea input,
+#inventoryArea select,
+#inventoryArea textarea {
+  background: #19374c;
+  color: #ffffff;
+  border: 1px solid #42647a;
+  border-radius: 8px;
+}
+
+#inventoryArea input::placeholder,
+#inventoryArea textarea::placeholder {
+  color: #b8c9d5;
+}
+
+#inventoryArea .inv-status {
+  color: #ffffff;
+  background: #193b52;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+@media (max-width: 700px) {
+  #inventoryArea {
+    padding: 8px;
+  }
+
+  #inventoryArea .inv-table {
+    min-width: 680px;
+  }
+}
   </style>
 
   <div class="panel">
@@ -399,7 +485,11 @@ footer {
               <th>الصلاحية</th>
             </tr>
           </thead>
-          <tbody id="inventoryRows"></tbody>
+          <tbody id="inventoryRows">
+  <tr>
+    <td colspan="5">جاري تحميل المواد...</td>
+  </tr>
+</tbody>
         </table>
       </div>
     </div>
