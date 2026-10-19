@@ -5,57 +5,244 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مستوصف السدير البيطري</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Tahoma, Arial, sans-serif;
-      background: #f1f5f9;
-      color: #183247;
-    }
-    header {
-      background: linear-gradient(135deg,#12344d,#087e83);
-      color: white;
-      padding: 24px 18px;
-      text-align: center;
-    }
-    header h1 { margin: 0 0 9px; font-size: 25px; }
-    header p { margin: 0; opacity: .9; }
-    main { max-width: 950px; margin: 24px auto; padding: 0 15px; }
-    .panel {
-      background: white;
-      padding: 22px;
-      border-radius: 16px;
-      box-shadow: 0 5px 20px #18324712;
-      margin-bottom: 18px;
-    }
-    h2 { margin-top: 0; font-size: 20px; }
-    label { display: block; margin: 14px 0 7px; }
-    input {
-      width: 100%; padding: 13px; border: 1px solid #cbd5e1;
-      border-radius: 9px; font-size: 16px;
-    }
-    button {
-      cursor: pointer; border: 0; border-radius: 9px;
-      padding: 12px 18px; background: #087e83;
-      color: white; font-size: 15px; margin-top: 15px;
-    }
-    button.secondary { background: #e2e8f0; color: #183247; }
-    .hidden { display: none !important; }
-    #message { margin-top: 14px; line-height: 1.8; overflow-wrap: anywhere; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
-      gap: 14px;
-    }
-    .tile {
-      background: #fff; border: 1px solid #e2e8f0;
-      padding: 20px 12px; border-radius: 14px;
-      text-align: center; font-weight: bold;
-    }
-    .tile span { display: block; font-size: 28px; margin-bottom: 10px; }
-    footer { text-align: center; color: #64748b; padding: 25px; }
-  </style>
+  
+<style>
+:root {
+  --bg: #061321;
+  --panel: rgba(8, 27, 42, .94);
+  --cyan: #08d9f5;
+  --green: #38f58b;
+  --text: #f0f8ff;
+  --muted: #9db4c8;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Tahoma, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 0% 0%, #064c4b 0, transparent 35%),
+    radial-gradient(ellipse at 100% 100%, #064a38 0, transparent 32%),
+    linear-gradient(145deg, #07111f, #0b2030 55%, #061321);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "🐾";
+  position: fixed;
+  top: 22px;
+  left: 20px;
+  font-size: 100px;
+  opacity: .035;
+  pointer-events: none;
+}
+
+header {
+  text-align: center;
+  padding: 34px 16px 18px;
+  background: transparent;
+}
+
+header h1 {
+  margin: 0 0 12px;
+  font-size: clamp(23px, 5vw, 34px);
+  font-weight: 800;
+  text-shadow: 0 0 22px #00d9f544;
+}
+
+header h1::first-letter { color: var(--green); }
+
+header p {
+  margin: 0;
+  color: var(--green);
+  font-size: 14px;
+}
+
+main {
+  width: min(100% - 28px, 760px);
+  margin: 20px auto 35px;
+}
+
+.panel {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid transparent;
+  border-radius: 25px;
+  padding: clamp(22px, 5vw, 38px);
+  margin-bottom: 20px;
+  box-shadow: 0 18px 55px #0006, inset 0 0 25px #00d9f508;
+  isolation: isolate;
+}
+
+#loginPanel {
+  max-width: 530px;
+  margin: 20px auto 30px;
+}
+
+#loginPanel::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 27px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--cyan), #087f99 35%, #087f60 65%, var(--green));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+  filter: drop-shadow(0 0 8px #00d9f544);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 23px;
+  text-align: center;
+}
+
+#loginPanel h2 { margin-bottom: 10px; }
+
+#loginPanel > p {
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 26px;
+}
+
+label {
+  display: block;
+  margin: 19px 0 9px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #d7e8f6;
+}
+
+input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  border: 1px solid #087f99;
+  border-radius: 15px;
+  font: inherit;
+  font-size: 15px;
+  color: white;
+  background: #071725;
+  outline: none;
+  transition: .25s;
+}
+
+input::placeholder { color: #8299ad; }
+
+input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #38f58b18, 0 0 18px #08d9f533;
+}
+
+button {
+  cursor: pointer;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 15px;
+  margin-top: 24px;
+  padding: 13px 18px;
+  color: #042131;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  background: linear-gradient(100deg, var(--cyan), #20e4ba, var(--green));
+  box-shadow: 0 8px 25px #00d9f522;
+  transition: transform .2s, filter .2s;
+}
+
+button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
+button.secondary {
+  color: #d9efff;
+  background: #142b3e;
+  border: 1px solid #345269;
+  box-shadow: none;
+}
+
+#message {
+  margin-top: 16px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  text-align: center;
+  font-size: 13px;
+}
+
+.hidden { display: none !important; }
+
+#dashboard .panel h2 { text-align: right; }
+
+#welcome, #roleText {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #10283b, #0a1c2c);
+  border: 1px solid #1d4053;
+  padding: 23px 12px;
+  border-radius: 17px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.8;
+  transition: .25s;
+}
+
+.tile:hover {
+  border-color: #17cfae;
+  box-shadow: 0 0 22px #08d9f51b;
+  transform: translateY(-3px);
+}
+
+.tile span {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 9px;
+}
+
+footer {
+  text-align: center;
+  color: #668399;
+  padding: 20px 12px 30px;
+  font-size: 12px;
+}
+
+@media (min-width: 600px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 380px) {
+  header { padding-top: 25px; }
+  .grid { gap: 9px; }
+  .tile { padding: 18px 7px; font-size: 13px; }
+  .panel { padding: 20px 16px; }
+}
+</style>
+
 </head>
 <body>
 <header>
@@ -217,4 +404,3 @@
   startApp().catch(error => showMessage(error.message, true));
 </script>
 </body>
-</html>
