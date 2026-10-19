@@ -268,28 +268,236 @@ footer {
     <div id="message" role="status"></div>
   </section>
 
-  <section id="dashboard" class="hidden">
-    <div class="panel">
-      <h2>أهلاً بك في المستوصف</h2>
-      <p id="welcome"></p>
-      <p id="roleText"></p>
-      <button id="logoutButton" class="secondary">تسجيل الخروج</button>
+ <section id="dashboard" class="hidden">
+  <style>
+    .inv-panel {
+      background: #fff;
+      color: #183247;
+      padding: 18px;
+      margin-top: 16px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px #0001;
+    }
+    .inv-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 0;
+    }
+    .inv-nav button {
+      white-space: nowrap;
+      background: #e8f4f5;
+      color: #155e63;
+      border: 1px solid #b7dfe0;
+      border-radius: 10px;
+      padding: 11px 15px;
+      cursor: pointer;
+    }
+    .inv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 12px;
+    }
+    .inv-grid input,.inv-grid select,
+    .inv-grid textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px;
+      border: 1px solid #ccd8df;
+      border-radius: 9px;
+      margin-top: 5px;
+      background: white;
+      color: #183247;
+    }
+    .inv-action {
+      background: #087e83;
+      color: white;
+      border: 0;
+      padding: 11px 16px;
+      margin: 8px 4px 0 0;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    .inv-table-wrap { overflow-x: auto; }
+    .inv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      min-width: 520px;
+    }
+    .inv-table th,.inv-table td {
+      padding: 10px;
+      border-bottom: 1px solid #dce5eb;
+      text-align: right;
+    }
+    .inv-table th { background: #e8f4f5; }
+    .inv-status { margin-top: 12px; font-weight: bold; }
+    .inv-hidden { display: none; }
+    #inventoryReceipt { display: none; }
+    @media print {
+      body * { visibility: hidden !important; }
+      #inventoryReceipt,#inventoryReceipt * {
+        visibility: visible !important;
+      }
+      #inventoryReceipt {
+        display: block !important;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        color: black;
+        background: white;
+        padding: 15px;
+        box-sizing: border-box;
+        font-family: Arial,sans-serif;
+      }
+      @page { size: A4; margin: 15mm; }
+    }
+  </style>
+
+  <div class="panel">
+    <h2>مستوصف السدير البيطري</h2>
+    <p id="welcome"></p>
+    <p id="roleText"></p>
+    <button id="logoutButton" class="secondary">تسجيل الخروج</button>
+  </div>
+
+  <div class="grid">
+    <div class="tile" onclick="openInventory()">💊 الأدوية والمخزون</div>
+    <div class="tile"><span>📝</span> الوصفات الطبية</div>
+    <div class="tile"><span>🐄</span> العملاء والحيوانات</div>
+    <div class="tile"><span>💉</span> التلقيحات</div>
+    <div class="tile"><span>💰</span> المصروفات والحسابات</div>
+    <div class="tile"><span>🚚</span> النقل والخدمات</div>
+    <div class="tile" onclick="openInventoryMovements()">📊 سجل المخزون</div>
+  </div>
+
+  <div id="inventoryArea" class="inv-panel inv-hidden">
+    <h2>إدارة الأدوية واللقاحات</h2>
+
+    <div class="inv-nav">
+      <button onclick="showInventoryTab('drugs')">الأدوية</button>
+      <button onclick="showInventoryTab('vaccines')">اللقاحات</button>
+      <button onclick="showInventoryTab('add')">إضافة مادة</button>
+      <button onclick="showInventoryTab('issue')">صرف المواد</button>
+      <button onclick="showInventoryTab('movements')">سجل الحركات</button>
     </div>
 
-    <div class="grid">
-      <div class="tile"><span>💊</span>الأدوية والمخزون</div>
-      <div class="tile"><span>📝</span>الوصفات الطبية</div>
-      <div class="tile"><span>🐄</span>العملاء والحيوانات</div>
-      <div class="tile"><span>💉</span>التلقيحات</div>
-      <div class="tile"><span>💰</span>المصروفات والحسابات</div>
-      <div class="tile"><span>🚚</span>النقل والخدمات</div>
-      <div class="tile"><span>📊</span>التقارير</div>
+    <div id="inventoryStatus" class="inv-status"></div>
+
+    <div id="inventoryListTab">
+      <h3 id="inventoryListTitle">المواد المخزونة</h3>
+      <button class="inv-action" onclick="loadInventory()">تحديث القائمة</button>
+      <div class="inv-table-wrap">
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>رقم المادة</th>
+              <th>اسم المادة</th>
+              <th>المنشأ</th>
+              <th>الرصيد</th>
+              <th>الصلاحية</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryRows"></tbody>
+        </table>
+      </div>
     </div>
-    <div class="panel" style="margin-top:18px">
-      الأقسام الظاهرة حالياً هي واجهة أولية؛ وظائف إدخال البيانات
-      والجرد والحسابات سنضيفها في الخطوات التالية.
+
+    <div id="inventoryAddTab" class="inv-hidden">
+      <h3>إضافة مادة جديدة</h3>
+      <div class="inv-grid">
+        <label>رقم المادة
+          <input id="newMaterialCode" required>
+        </label>
+        <label>اسم المادة
+          <input id="newMaterialName" required>
+        </label>
+        <label>نوع المادة
+          <select id="newMaterialKind">
+            <option value="drug">دواء</option>
+            <option value="vaccine">لقاح</option>
+          </select>
+        </label>
+        <label>المنشأ
+          <select id="newMaterialOrigin">
+            <option value="محلي">محلي</option>
+            <option value="مستورد">مستورد</option>
+            <option value="غير محدد">غير محدد</option>
+          </select>
+        </label>
+        <label>الكمية الابتدائية
+          <input id="newMaterialQty" type="number" min="0" step="0.01" value="0">
+        </label>
+        <label>رقم الوجبة
+          <input id="newMaterialBatch">
+        </label>
+        <label>تاريخ الإنتاج
+          <input id="newMaterialProduction" type="date">
+        </label>
+        <label>تاريخ الانتهاء
+          <input id="newMaterialExpiry" type="date">
+        </label>
+      </div>
+      <button class="inv-action" onclick="addInventoryMaterial()">حفظ المادة</button>
     </div>
-  </section>
+
+    <div id="inventoryIssueTab" class="inv-hidden">
+      <h3>صرف مادة من المخزون</h3>
+      <div class="inv-grid">
+        <label>رقم المادة
+          <input id="issueMaterialCode" placeholder="اكتب رقم المادة">
+        </label>
+        <label>الكمية المصروفة
+          <input id="issueQuantity" type="number" min="0.01" step="0.01">
+        </label>
+        <label>ملاحظات الصرف
+          <input id="issueNotes" placeholder="سبب الصرف أو الجهة المستلمة">
+        </label>
+      </div>
+      <button class="inv-action" onclick="findIssueMaterial()">بحث عن المادة</button>
+      <div id="issueMaterialInfo"></div>
+      <button class="inv-action" onclick="issueInventoryMaterial()">تأكيد الصرف</button>
+      <button class="inv-action" onclick="printInventoryReceipt()">طباعة وصل A4</button>
+    </div>
+
+    <div id="inventoryMovementsTab" class="inv-hidden">
+      <h3>سجل حركات المخزون</h3>
+      <button class="inv-action" onclick="loadInventoryMovements()">تحديث السجل</button>
+      <div class="inv-table-wrap">
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>التاريخ</th>
+              <th>رقم المادة</th>
+              <th>الحركة</th>
+              <th>الكمية</th>
+              <th>الملاحظات</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryMovementRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="inventoryReceipt">
+    <h2 style="text-align:center">مستوصف السدير البيطري</h2>
+    <h3 style="text-align:center">وصل صرف مواد مخزنية</h3>
+    <hr>
+    <p>رقم الوصل: <span id="receiptMovementId"></span></p>
+    <p>التاريخ: <span id="receiptDate"></span></p>
+    <p>رقم المادة: <span id="receiptCode"></span></p>
+    <p>اسم المادة: <span id="receiptName"></span></p>
+    <p>الكمية المصروفة: <span id="receiptQuantity"></span></p>
+    <p>الرصيد المتبقي: <span id="receiptRemaining"></span></p>
+    <p>ملاحظات: <span id="receiptNotes"></span></p>
+    <br><br>
+    <p>اسم المستلم: ____________________</p>
+    <p>توقيع المسؤول: ____________________</p>
+    <p>الختم: __________________________</p>
+  </div>
+</section>
 </main>
 
 <footer>مستوصف السدير البيطري</footer>
