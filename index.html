@@ -460,7 +460,7 @@ footer {
 
   <div id="inventoryArea" class="inv-panel inv-hidden">
     <h2>إدارة الأدوية واللقاحات</h2>
-
+<button class="inv-action" onclick="closeInventory()">↩ العودة إلى الرئيسية</button>
     <div class="inv-nav">
       <button onclick="showInventoryTab('drugs')">الأدوية</button>
       <button onclick="showInventoryTab('vaccines')">اللقاحات</button>
@@ -661,11 +661,20 @@ function escapeInventoryHTML(value) {
 
 function openInventory() {
   const area = document.getElementById("inventoryArea");
-  if (!area) return;
+  const dashboard = document.getElementById("dashboard");
+
+  if (!area || !dashboard) return;
+
+  const mainPanel = dashboard.querySelector(".panel");
+  const mainGrid = dashboard.querySelector(".grid");
+
+  if (mainPanel) mainPanel.classList.add("hidden");
+  if (mainGrid) mainGrid.classList.add("hidden");
 
   area.classList.remove("inv-hidden");
   showInventoryTab(lastInventoryListTab);
-  area.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function openInventoryMovements() {
@@ -676,7 +685,22 @@ function openInventoryMovements() {
   showInventoryTab("movements");
   area.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+function closeInventory() {
+  const area = document.getElementById("inventoryArea");
+  const dashboard = document.getElementById("dashboard");
 
+  if (!area || !dashboard) return;
+
+  area.classList.add("inv-hidden");
+
+  const mainPanel = dashboard.querySelector(".panel");
+  const mainGrid = dashboard.querySelector(".grid");
+
+  if (mainPanel) mainPanel.classList.remove("hidden");
+  if (mainGrid) mainGrid.classList.remove("hidden");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 function showInventoryTab(tab) {
   selectedInventoryTab = tab;
 
