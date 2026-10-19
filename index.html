@@ -476,15 +476,15 @@ footer {
       <button class="inv-action" onclick="loadInventory()">تحديث القائمة</button>
       <div class="inv-table-wrap">
         <table class="inv-table">
-          <thead>
-            <tr>
-              <th>رقم المادة</th>
-              <th>اسم المادة</th>
-              <th>المنشأ</th>
-              <th>الرصيد</th>
-              <th>الصلاحية</th>
-            </tr>
-          </thead>
+         <thead>
+  <tr>
+    <th>اسم المادة</th>
+    <th>رقم المادة</th>
+    <th>المنشأ</th>
+    <th>الكمية المتبقية</th>
+    <th>تاريخ الانتهاء</th>
+  </tr>
+</thead>
           <tbody id="inventoryRows">
   <tr>
     <td colspan="5">جاري تحميل المواد...</td>
@@ -749,14 +749,14 @@ async function loadInventory() {
       const remaining =
         Number(item.total_qty || 0) - Number(item.issued_qty || 0);
 
-      return `
-        <tr>
-          <td>${escapeInventoryHTML(item.material_code)}</td>
-          <td>${escapeInventoryHTML(item.name)}</td>
-          <td>${escapeInventoryHTML(item.origin || "—")}</td>
-          <td>${remaining.toLocaleString("en-US")}</td>
-          <td>${escapeInventoryHTML(item.expiry_date || "—")}</td>
-        </tr>`;
+     return `
+  <tr>
+    <td>${escapeInventoryHTML(item.name)}</td>
+    <td>${escapeInventoryHTML(item.material_code)}</td>
+    <td>${escapeInventoryHTML(item.origin || "—")}</td>
+    <td>${remaining.toLocaleString("en-US")}</td>
+    <td>${escapeInventoryHTML(item.expiry_date || "—")}</td>
+  </tr>`;
     }).join("");
 
     inventoryMessage("عدد المواد: " + data.length);
