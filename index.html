@@ -1,12 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
+ <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مستوصف السدير البيطري</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-<style>
+  <style>
 :root {
   --bg: #061321;
   --panel: rgba(8, 27, 42, .94);
@@ -16,7 +15,7 @@
   --muted: #9db4c8;
 }
 * { box-sizing: border-box; }
-
+ 
 body {
   margin: 0;
   min-height: 100vh;
@@ -28,7 +27,7 @@ body {
     linear-gradient(145deg, #07111f, #0b2030 55%, #061321);
   overflow-x: hidden;
 }
-
+ 
 body::before {
   content: "🐾";
   position: fixed;
@@ -38,33 +37,33 @@ body::before {
   opacity: .035;
   pointer-events: none;
 }
-
+ 
 header {
   text-align: center;
   padding: 34px 16px 18px;
   background: transparent;
 }
-
+ 
 header h1 {
   margin: 0 0 12px;
   font-size: clamp(23px, 5vw, 34px);
   font-weight: 800;
   text-shadow: 0 0 22px #00d9f544;
 }
-
+ 
 header h1::first-letter { color: var(--green); }
-
+ 
 header p {
   margin: 0;
   color: var(--green);
   font-size: 14px;
 }
-
+ 
 main {
   width: min(100% - 28px, 760px);
   margin: 20px auto 35px;
 }
-
+ 
 .panel {
   position: relative;
   background: var(--panel);
@@ -75,12 +74,12 @@ main {
   box-shadow: 0 18px 55px #0006, inset 0 0 25px #00d9f508;
   isolation: isolate;
 }
-
+ 
 #loginPanel {
   max-width: 530px;
   margin: 20px auto 30px;
 }
-
+ 
 #loginPanel::before {
   content: "";
   position: absolute;
@@ -95,15 +94,15 @@ main {
   z-index: -1;
   filter: drop-shadow(0 0 8px #00d9f544);
 }
-
+ 
 h2 {
   margin: 0 0 12px;
   font-size: 23px;
   text-align: center;
 }
-
+ 
 #loginPanel h2 { margin-bottom: 10px; }
-
+ 
 #loginPanel > p {
   color: var(--muted);
   text-align: center;
@@ -111,7 +110,7 @@ h2 {
   line-height: 1.9;
   margin-bottom: 26px;
 }
-
+ 
 label {
   display: block;
   margin: 19px 0 9px;
@@ -119,7 +118,7 @@ label {
   font-weight: bold;
   color: #d7e8f6;
 }
-
+ 
 input {
   width: 100%;
   min-height: 52px;
@@ -133,14 +132,14 @@ input {
   outline: none;
   transition: .25s;
 }
-
+ 
 input::placeholder { color: #8299ad; }
-
+ 
 input:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px #38f58b18, 0 0 18px #08d9f533;
 }
-
+ 
 button {
   cursor: pointer;
   width: 100%;
@@ -157,25 +156,25 @@ button {
   box-shadow: 0 8px 25px #00d9f522;
   transition: transform .2s, filter .2s;
 }
-
+ 
 button:hover {
   filter: brightness(1.08);
   transform: translateY(-1px);
 }
-
+ 
 button:disabled {
   opacity: .65;
   cursor: wait;
   transform: none;
 }
-
+ 
 button.secondary {
   color: #d9efff;
   background: #142b3e;
   border: 1px solid #345269;
   box-shadow: none;
 }
-
+ 
 #message {
   margin-top: 16px;
   line-height: 1.9;
@@ -183,22 +182,22 @@ button.secondary {
   text-align: center;
   font-size: 13px;
 }
-
+ 
 .hidden { display: none !important; }
-
+ 
 #dashboard .panel h2 { text-align: right; }
-
+ 
 #welcome, #roleText {
   color: var(--muted);
   line-height: 1.8;
 }
-
+ 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 13px;
 }
-
+ 
 .tile {
   position: relative;
   overflow: hidden;
@@ -211,30 +210,30 @@ button.secondary {
   line-height: 1.8;
   transition: .25s;
 }
-
+ 
 .tile:hover {
   border-color: #17cfae;
   box-shadow: 0 0 22px #08d9f51b;
   transform: translateY(-3px);
 }
-
+ 
 .tile span {
   display: block;
   font-size: 30px;
   margin-bottom: 9px;
 }
-
+ 
 footer {
   text-align: center;
   color: #668399;
   padding: 20px 12px 30px;
   font-size: 12px;
 }
-
+ 
 @media (min-width: 600px) {
   .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-
+ 
 @media (max-width: 380px) {
   header { padding-top: 25px; }
   .grid { gap: 9px; }
@@ -242,34 +241,22 @@ footer {
   .panel { padding: 20px 16px; }
 }
 </style>
-
-</head>
-<body>
-<header>
-  <h1>🐾 مستوصف السدير البيطري</h1>
-  <p>نظام إدارة المستوصف والعيادة البيطرية</p>
-</header>
-
-<main>
-  <section id="loginPanel" class="panel">
+ </head>
+ <body>
+  <header>
+   <h1>🐾 مستوصف السدير البيطري</h1>
+   <p>نظام إدارة المستوصف والعيادة البيطرية</p>
+  </header>
+  <main>
+   <section id="loginPanel" class="panel">
     <h2>تسجيل الدخول</h2>
     <p>سجّل الدخول بحسابك المسجّل في Supabase.</p>
-
-    <label for="email">البريد الإلكتروني</label>
-    <input id="email" type="email" autocomplete="username"
-           placeholder="أدخل بريدك الإلكتروني">
-
-    <label for="password">كلمة المرور</label>
-    <input id="password" type="password"
-           autocomplete="current-password"
-           placeholder="أدخل كلمة المرور">
-
+    <label for="email">البريد الإلكتروني</label> <input id="email" type="email" autocomplete="username" placeholder="أدخل بريدك الإلكتروني"> <label for="password">كلمة المرور</label> <input id="password" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور">
     <button id="loginButton">دخول إلى المستوصف</button>
     <div id="message" role="status"></div>
-  </section>
-
- <section id="dashboard" class="hidden">
-  <style>
+   </section>
+   <section id="dashboard" class="hidden">
+    <style>
     .inv-panel {
       background: #fff;
       color: #183247;
@@ -351,7 +338,26 @@ footer {
         box-sizing: border-box;
         font-family: Arial,sans-serif;
       }
-      @page { size: A4; margin: 15mm; }
+  #inventoryReceipt table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-top: 18px;
+}
+ 
+#inventoryReceipt th,
+#inventoryReceipt td {
+  border: 1px solid #333 !important;
+  padding: 12px 8px !important;
+  color: #000 !important;
+  text-align: center !important;
+  font-size: 13px;
+}
+ 
+#inventoryReceipt th {
+  font-weight: bold;
+  background: #e9eef2 !important;
+}
+    @page { size: A4; margin: 15mm; }
     }
     /* تصميم جدول الأدوية والمخزون */
 #inventoryArea {
@@ -361,26 +367,45 @@ footer {
   border-radius: 16px;
   padding: 16px;
 }
-
+ 
+ 
 #inventoryArea .inv-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  margin: 18px auto;
+  padding: 0;
+  box-sizing: border-box;
 }
-
+ 
 #inventoryArea .inv-nav button {
-  background: #193b52;
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #193b52, #24566b);
   color: #ffffff;
-  border: 1px solid #31556b;
-  border-radius: 9px;
-  padding: 12px;
+  border: 1px solid #42647a;
+  border-radius: 12px;
+  padding: 14px 18px;
   text-align: right;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
-
+ 
 #inventoryArea .inv-nav button:hover {
   background: #176b68;
 }
-
+ 
+#inventoryArea .inv-nav button:active {
+  transform: scale(0.98);
+}
+ 
+ 
 #inventoryArea .inv-table {
   width: 100%;
   min-width: 680px;
@@ -388,7 +413,7 @@ footer {
   border-spacing: 3px;
   color: #ffffff;
 }
-
+ 
 #inventoryArea .inv-table th {
   background: #176b68;
   color: #ffffff;
@@ -396,7 +421,7 @@ footer {
   text-align: center;
   white-space: nowrap;
 }
-
+ 
 #inventoryArea .inv-table td {
   background: #1b3b53;
   color: #f1f5f9;
@@ -404,11 +429,11 @@ footer {
   text-align: center;
   border-bottom: 1px solid #31556b;
 }
-
+ 
 #inventoryArea .inv-table tbody tr:hover td {
   background: #244b62;
 }
-
+ 
 #inventoryArea input,
 #inventoryArea select,
 #inventoryArea textarea {
@@ -417,211 +442,202 @@ footer {
   border: 1px solid #42647a;
   border-radius: 8px;
 }
-
+ 
 #inventoryArea input::placeholder,
 #inventoryArea textarea::placeholder {
   color: #b8c9d5;
 }
-
+ 
 #inventoryArea .inv-status {
   color: #ffffff;
   background: #193b52;
   border-radius: 8px;
   padding: 10px;
 }
-
+ 
 @media (max-width: 700px) {
   #inventoryArea {
     padding: 8px;
   }
-
+ 
   #inventoryArea .inv-table {
     min-width: 680px;
   }
 }
   </style>
-
-  <div class="panel">
-    <h2>مستوصف السدير البيطري</h2>
-    <p id="welcome"></p>
-    <p id="roleText"></p>
-    <button id="logoutButton" class="secondary">تسجيل الخروج</button>
-  </div>
-
-  <div class="grid">
-    <div class="tile" onclick="openInventory()">💊 الأدوية والمخزون</div>
-    <div class="tile"><span>📝</span> الوصفات الطبية</div>
-    <div class="tile"><span>🐄</span> العملاء والحيوانات</div>
-    <div class="tile"><span>💉</span> التلقيحات</div>
-    <div class="tile"><span>💰</span> المصروفات والحسابات</div>
-    <div class="tile"><span>🚚</span> النقل والخدمات</div>
-    <div class="tile" onclick="openInventoryMovements()">📊 سجل المخزون</div>
-  </div>
-
-  <div id="inventoryArea" class="inv-panel inv-hidden">
-    <h2>إدارة الأدوية واللقاحات</h2>
-<button class="inv-action" onclick="closeInventory()">↩ العودة إلى الرئيسية</button>
-    <div class="inv-nav">
-      <button onclick="showInventoryTab('drugs')">الأدوية</button>
-      <button onclick="showInventoryTab('vaccines')">اللقاحات</button>
-      <button onclick="showInventoryTab('add')">إضافة مادة</button>
-      <button onclick="showInventoryTab('issue')">صرف المواد</button>
-      <button onclick="showInventoryTab('movements')">سجل الحركات</button>
+    <div class="panel">
+     <h2>مستوصف السدير البيطري</h2>
+     <p id="welcome"></p>
+     <p id="roleText"></p>
+     <button id="logoutButton" class="secondary">تسجيل الخروج</button>
     </div>
-
-    <div id="inventoryStatus" class="inv-status"></div>
-
-    <div id="inventoryListTab">
+    <div class="grid">
+     <div class="tile" onclick="openInventory()">💊 الأدوية والمخزون</div>
+     <div class="tile">
+      <span>📝</span> الوصفات الطبية
+     </div>
+     <div class="tile">
+      <span>🐄</span> العملاء والحيوانات
+     </div>
+     <div class="tile">
+      <span>💉</span> التلقيحات
+     </div>
+     <div class="tile">
+      <span>💰</span> المصروفات والحسابات
+     </div>
+     <div class="tile">
+      <span>🚚</span> النقل والخدمات
+     </div>
+     <div class="tile" onclick="openInventoryMovements()">📊 سجل المخزون</div>
+    </div>
+    <div id="inventoryArea" class="inv-panel inv-hidden">
+     <h2>💊 إدارة الأدوية واللقاحات</h2>
+     <button class="inv-action" onclick="closeInventory()">↩ العودة إلى الرئيسية</button>
+     <div class="inv-nav inv-nav-vertical">
+      <button onclick="showInventoryTab('drugs')">💊 الأدوية</button>
+      <button onclick="showInventoryTab('vaccines')">💉 اللقاحات</button>
+      <button onclick="showInventoryTab('add')">➕ إضافة مادة</button>
+      <button onclick="showInventoryTab('issue')">📤 صرف المواد</button>
+      <button onclick="showInventoryTab('movements')">📋 سجل الحركات</button>
+     </div>
+     <button id="inventoryBackButton" class="inv-action inv-hidden" onclick="showInventoryMenu()">↩ رجوع إلى الأقسام</button>
+     <div id="inventoryStatus" class="inv-status"></div>
+     <div id="inventoryListTab">
       <h3 id="inventoryListTitle">المواد المخزونة</h3>
       <button class="inv-action" onclick="loadInventory()">تحديث القائمة</button>
       <div class="inv-table-wrap">
-        <table class="inv-table">
-         <thead>
-  <tr>
-    <th>اسم المادة</th>
-    <th>رقم المادة</th>
-    <th>المنشأ</th>
-    <th>الكمية المتبقية</th>
-    <th>تاريخ الانتهاء</th>
-  </tr>
-</thead>
-          <tbody id="inventoryRows">
-  <tr>
-    <td colspan="5">جاري تحميل المواد...</td>
-  </tr>
-</tbody>
-        </table>
+       <table class="inv-table">
+        <thead>
+         <tr>
+          <th>رقم المادة</th>
+          <th>اسم المادة</th>
+          <th>المنشأ</th>
+          <th>الرصيد</th>
+          <th>الصلاحية</th>
+         </tr>
+        </thead>
+        <tbody id="inventoryRows">
+         <tr>
+          <td colspan="5">جاري تحميل المواد...</td>
+         </tr>
+        </tbody>
+       </table>
       </div>
-    </div>
-
-    <div id="inventoryAddTab" class="inv-hidden">
+     </div>
+     <div id="inventoryAddTab" class="inv-hidden">
       <h3>إضافة مادة جديدة</h3>
       <div class="inv-grid">
-        <label>رقم المادة
-          <input id="newMaterialCode" required>
-        </label>
-        <label>اسم المادة
-          <input id="newMaterialName" required>
-        </label>
-        <label>نوع المادة
-          <select id="newMaterialKind">
-            <option value="drug">دواء</option>
-            <option value="vaccine">لقاح</option>
-          </select>
-        </label>
-        <label>المنشأ
-          <select id="newMaterialOrigin">
-            <option value="محلي">محلي</option>
-            <option value="مستورد">مستورد</option>
-            <option value="غير محدد">غير محدد</option>
-          </select>
-        </label>
-        <label>الكمية الابتدائية
-          <input id="newMaterialQty" type="number" min="0" step="0.01" value="0">
-        </label>
-        <label>رقم الوجبة
-          <input id="newMaterialBatch">
-        </label>
-        <label>تاريخ الإنتاج
-          <input id="newMaterialProduction" type="date">
-        </label>
-        <label>تاريخ الانتهاء
-          <input id="newMaterialExpiry" type="date">
-        </label>
+       <label>رقم المادة <input id="newMaterialCode" required> </label> <label>اسم المادة <input id="newMaterialName" required> </label> <label>نوع المادة <select id="newMaterialKind"> <option value="drug">دواء</option> <option value="vaccine">لقاح</option> </select> </label> <label>المنشأ <select id="newMaterialOrigin"> <option value="محلي">محلي</option> <option value="مستورد">مستورد</option> <option value="غير محدد">غير محدد</option> </select> </label> <label>الكمية الابتدائية <input id="newMaterialQty" type="number" min="0" step="0.01" value="0"> </label> <label>رقم الوجبة <input id="newMaterialBatch"> </label> <label>تاريخ الإنتاج <input id="newMaterialProduction" type="date"> </label> <label>تاريخ الانتهاء <input id="newMaterialExpiry" type="date"> </label>
       </div>
       <button class="inv-action" onclick="addInventoryMaterial()">حفظ المادة</button>
-    </div>
-
-    <div id="inventoryIssueTab" class="inv-hidden">
+     </div>
+     <div id="inventoryIssueTab" class="inv-hidden">
       <h3>صرف مادة من المخزون</h3>
       <div class="inv-grid">
-        <label>رقم المادة
-          <input id="issueMaterialCode" placeholder="اكتب رقم المادة">
-        </label>
-        <label>الكمية المصروفة
-          <input id="issueQuantity" type="number" min="0.01" step="0.01">
-        </label>
-        <label>ملاحظات الصرف
-          <input id="issueNotes" placeholder="سبب الصرف أو الجهة المستلمة">
-        </label>
+       <label>رقم المادة <input id="issueMaterialCode" placeholder="اكتب رقم المادة"> </label> <label>الكمية المصروفة <input id="issueQuantity" type="number" min="0.01" step="0.01"> </label> <label>ملاحظات الصرف <input id="issueNotes" placeholder="سبب الصرف أو الجهة المستلمة"> </label>
       </div>
       <button class="inv-action" onclick="findIssueMaterial()">بحث عن المادة</button>
       <div id="issueMaterialInfo"></div>
       <button class="inv-action" onclick="issueInventoryMaterial()">تأكيد الصرف</button>
       <button class="inv-action" onclick="printInventoryReceipt()">طباعة وصل A4</button>
-    </div>
-
-    <div id="inventoryMovementsTab" class="inv-hidden">
+     </div>
+     <div id="inventoryMovementsTab" class="inv-hidden">
       <h3>سجل حركات المخزون</h3>
       <button class="inv-action" onclick="loadInventoryMovements()">تحديث السجل</button>
       <div class="inv-table-wrap">
-        <table class="inv-table">
-          <thead>
-            <tr>
-              <th>التاريخ</th>
-              <th>رقم المادة</th>
-              <th>الحركة</th>
-              <th>الكمية</th>
-              <th>الملاحظات</th>
-            </tr>
-          </thead>
-          <tbody id="inventoryMovementRows"></tbody>
-        </table>
+       <table class="inv-table">
+        <thead>
+         <tr>
+          <th>التاريخ</th>
+          <th>رقم المادة</th>
+          <th>الحركة</th>
+          <th>الكمية</th>
+          <th>الملاحظات</th>
+         </tr>
+        </thead>
+        <tbody id="inventoryMovementRows"></tbody>
+       </table>
       </div>
+     </div>
     </div>
-  </div>
-
-  <div id="inventoryReceipt">
-    <h2 style="text-align:center">مستوصف السدير البيطري</h2>
-    <h3 style="text-align:center">وصل صرف مواد مخزنية</h3>
-    <hr>
-    <p>رقم الوصل: <span id="receiptMovementId"></span></p>
-    <p>التاريخ: <span id="receiptDate"></span></p>
-    <p>رقم المادة: <span id="receiptCode"></span></p>
-    <p>اسم المادة: <span id="receiptName"></span></p>
-    <p>الكمية المصروفة: <span id="receiptQuantity"></span></p>
-    <p>الرصيد المتبقي: <span id="receiptRemaining"></span></p>
-    <p>ملاحظات: <span id="receiptNotes"></span></p>
-    <br><br>
-    <p>اسم المستلم: ____________________</p>
-    <p>توقيع المسؤول: ____________________</p>
-    <p>الختم: __________________________</p>
-  </div>
-</section>
-</main>
-
-<footer>مستوصف السدير البيطري</footer>
-
-<script>
+    <div id="inventoryReceipt" dir="rtl">
+     <h2 style="text-align:center">مستوصف السدير البيطري</h2>
+     <h3 style="text-align:center">وصل صرف مواد مخزنية</h3>
+     <table class="inv-table" style="min-width:0;width:100%;border-collapse:collapse">
+      <tbody>
+       <tr>
+        <th>رقم الوصل</th>
+        <td><span id="receiptMovementId"></span></td>
+        <th>التاريخ</th>
+        <td><span id="receiptDate"></span></td>
+       </tr>
+       <tr>
+        <th>رقم المادة</th>
+        <td><span id="receiptCode"></span></td>
+        <th>اسم المادة</th>
+        <td><span id="receiptName"></span></td>
+       </tr>
+       <tr>
+        <th>الكمية المصروفة</th>
+        <td><span id="receiptQuantity"></span></td>
+        <th>الرصيد المتبقي</th>
+        <td><span id="receiptRemaining"></span></td>
+       </tr>
+       <tr>
+        <th>ملاحظات</th>
+        <td colspan="3"><span id="receiptNotes"></span></td>
+       </tr>
+      </tbody>
+     </table>
+     <table style="width:100%;margin-top:45px;border-collapse:collapse">
+      <tbody>
+       <tr>
+        <td style="text-align:center;padding:12px">اسم المستلم والتوقيع
+         <br>
+         <br>
+         ____________________</td>
+        <td style="text-align:center;padding:12px">اسم المسؤول والتوقيع
+         <br>
+         <br>
+         ____________________</td>
+       </tr>
+      </tbody>
+     </table>
+     <p style="text-align:center;margin-top:35px">ختم المستوصف</p>
+    </div>
+   </section>
+  </main>
+  <footer>مستوصف السدير البيطري</footer>
+  <script>
   // ضع بيانات مشروعك هنا على جهازك أو في ملفك.
   const SUPABASE_URL = "https://yuadbxdwhytckirrobla.supabase.co";
   const SUPABASE_KEY = "sb_publishable_znc_XShIA_lrHH04D49fpA_CqHkRdkR";
-
+ 
   const loginPanel = document.getElementById("loginPanel");
   const dashboard = document.getElementById("dashboard");
   const message = document.getElementById("message");
-
+ 
   let db = null;
-
+ 
   function showMessage(text, error = false) {
     message.textContent = text;
     message.style.color = error ? "#b91c1c" : "#087e83";
   }
-
+ 
   function showLogin() {
     loginPanel.classList.remove("hidden");
     dashboard.classList.add("hidden");
   }
-
+ 
   async function showDashboard(user) {
     const { data, error } = await db
       .from("profiles")
       .select("full_name, role, active")
       .eq("id", user.id)
       .maybeSingle();
-
+ 
     if (error) throw error;
-
+ 
     if (!data || data.active !== true ||
         !["admin", "assistant"].includes(data.role)) {
       await db.auth.signOut();
@@ -629,7 +645,7 @@ footer {
         "الحساب غير مفعّل أو لم يُضف إلى جدول profiles."
       );
     }
-
+ 
     loginPanel.classList.add("hidden");
     dashboard.classList.remove("hidden");
     document.getElementById("welcome").textContent =
@@ -637,18 +653,18 @@ footer {
     document.getElementById("roleText").textContent =
       data.role === "admin" ? "الصلاحية: مسؤول" : "الصلاحية: مساعد";
   }
-
+ 
 let selectedInventoryMaterial = null;
 let selectedInventoryTab = "drugs";
 let lastInventoryListTab = "drugs";
-
+ 
 function inventoryMessage(text, error = false) {
   const el = document.getElementById("inventoryStatus");
   if (!el) return;
   el.textContent = text;
   el.style.color = error ? "#b91c1c" : "#087e83";
 }
-
+ 
 function escapeInventoryHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, ch => ({
     "&": "&amp;",
@@ -658,52 +674,88 @@ function escapeInventoryHTML(value) {
     "'": "&#39;"
   })[ch]);
 }
-
+ 
+ 
 function openInventory() {
   const area = document.getElementById("inventoryArea");
   const dashboard = document.getElementById("dashboard");
-
+ 
   if (!area || !dashboard) return;
-
+ 
   const mainPanel = dashboard.querySelector(".panel");
   const mainGrid = dashboard.querySelector(".grid");
-
+ 
   if (mainPanel) mainPanel.classList.add("hidden");
   if (mainGrid) mainGrid.classList.add("hidden");
-
+ 
   area.classList.remove("inv-hidden");
-  showInventoryTab(lastInventoryListTab);
-
+ 
+  showInventoryMenu();
+ 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
+ 
+ 
+ 
 function openInventoryMovements() {
   const area = document.getElementById("inventoryArea");
-  if (!area) return;
-
+  const dashboard = document.getElementById("dashboard");
+ 
+  if (!area || !dashboard) return;
+ 
+  const mainPanel = dashboard.querySelector(".panel");
+  const mainGrid = dashboard.querySelector(".grid");
+ 
+  if (mainPanel) mainPanel.classList.add("hidden");
+  if (mainGrid) mainGrid.classList.add("hidden");
+ 
   area.classList.remove("inv-hidden");
   showInventoryTab("movements");
-  area.scrollIntoView({ behavior: "smooth", block: "start" });
+ 
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
+ 
 function closeInventory() {
   const area = document.getElementById("inventoryArea");
   const dashboard = document.getElementById("dashboard");
-
+ 
   if (!area || !dashboard) return;
-
+ 
   area.classList.add("inv-hidden");
-
+ 
   const mainPanel = dashboard.querySelector(".panel");
   const mainGrid = dashboard.querySelector(".grid");
-
+ 
   if (mainPanel) mainPanel.classList.remove("hidden");
   if (mainGrid) mainGrid.classList.remove("hidden");
-
+ 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+ 
+function showInventoryMenu() {
+  const tabs = [
+    "inventoryListTab",
+    "inventoryAddTab",
+    "inventoryIssueTab",
+    "inventoryMovementsTab"
+  ];
+ 
+  tabs.forEach(id => {
+    document.getElementById(id)?.classList.add("inv-hidden");
+  });
+ 
+  document.querySelector("#inventoryArea .inv-nav")
+    ?.classList.remove("inv-hidden");
+ 
+  document.getElementById("inventoryBackButton")
+    ?.classList.add("inv-hidden");
+ 
+  document.getElementById("inventoryStatus").textContent = "";
+}
+ 
 function showInventoryTab(tab) {
   selectedInventoryTab = tab;
-
+ 
   const ids = {
     drugs: "inventoryListTab",
     vaccines: "inventoryListTab",
@@ -711,48 +763,57 @@ function showInventoryTab(tab) {
     issue: "inventoryIssueTab",
     movements: "inventoryMovementsTab"
   };
-
+ 
   Object.values(ids).forEach(id => {
     document.getElementById(id)?.classList.add("inv-hidden");
   });
-
+ 
+  document.querySelector("#inventoryArea .inv-nav")
+    ?.classList.add("inv-hidden");
+ 
   const target = ids[tab];
+ 
   if (target) {
     document.getElementById(target)?.classList.remove("inv-hidden");
   }
-
+ 
+  document.getElementById("inventoryBackButton")
+    ?.classList.remove("inv-hidden");
+ 
   if (tab === "drugs" || tab === "vaccines") {
     lastInventoryListTab = tab;
+ 
     document.getElementById("inventoryListTitle").textContent =
       tab === "drugs" ? "قائمة الأدوية" : "قائمة اللقاحات";
+ 
     loadInventory();
   }
-
+ 
   if (tab === "add") {
     document.getElementById("newMaterialKind").value =
       lastInventoryListTab === "vaccines" ? "vaccine" : "drug";
   }
-
+ 
   if (tab === "issue") {
     document.getElementById("issueMaterialInfo").textContent = "";
   }
-
+ 
   if (tab === "movements") {
     loadInventoryMovements();
   }
 }
-
+ 
 async function loadInventory() {
   if (!db) {
     inventoryMessage("الاتصال بقاعدة البيانات غير جاهز.", true);
     return;
   }
-
+ 
   const tbody = document.getElementById("inventoryRows");
   tbody.innerHTML = "";
-
+ 
   inventoryMessage("جارٍ تحميل المواد...");
-
+ 
   try {
     const { data, error } = await db
       .from("inventory_materials")
@@ -761,40 +822,40 @@ async function loadInventory() {
       )
       .eq("kind", selectedInventoryTab === "vaccines" ? "vaccine" : "drug")
       .order("name");
-
+ 
     if (error) throw error;
-
+ 
     if (!data || data.length === 0) {
       inventoryMessage("لا توجد مواد في هذا القسم.");
       return;
     }
-
+ 
     tbody.innerHTML = data.map(item => {
       const remaining =
         Number(item.total_qty || 0) - Number(item.issued_qty || 0);
-
-     return `
-  <tr>
-    <td>${escapeInventoryHTML(item.name)}</td>
-    <td>${escapeInventoryHTML(item.material_code)}</td>
-    <td>${escapeInventoryHTML(item.origin || "—")}</td>
-    <td>${remaining.toLocaleString("en-US")}</td>
-    <td>${escapeInventoryHTML(item.expiry_date || "—")}</td>
-  </tr>`;
+ 
+      return `
+        <tr>
+          <td>${escapeInventoryHTML(item.material_code)}</td>
+          <td>${escapeInventoryHTML(item.name)}</td>
+          <td>${escapeInventoryHTML(item.origin || "—")}</td>
+          <td>${remaining.toLocaleString("en-US")}</td>
+          <td>${escapeInventoryHTML(item.expiry_date || "—")}</td>
+        </tr>`;
     }).join("");
-
+ 
     inventoryMessage("عدد المواد: " + data.length);
   } catch (error) {
     inventoryMessage("تعذّر تحميل المواد: " + error.message, true);
   }
 }
-
+ 
 async function addInventoryMaterial() {
   if (!db) {
     inventoryMessage("الاتصال بقاعدة البيانات غير جاهز.", true);
     return;
   }
-
+ 
   const code = document.getElementById("newMaterialCode").value.trim();
   const name = document.getElementById("newMaterialName").value.trim();
   const kind = document.getElementById("newMaterialKind").value;
@@ -803,33 +864,33 @@ async function addInventoryMaterial() {
   const batch = document.getElementById("newMaterialBatch").value.trim();
   const production = document.getElementById("newMaterialProduction").value;
   const expiry = document.getElementById("newMaterialExpiry").value;
-
+ 
   if (!code || !name) {
     inventoryMessage("يرجى إدخال رقم المادة واسمها.", true);
     return;
   }
-
+ 
   if (!Number.isFinite(qty) || qty < 0) {
     inventoryMessage("الكمية غير صحيحة.", true);
     return;
   }
-
+ 
   if (production && expiry && expiry < production) {
     inventoryMessage("تاريخ الانتهاء أسبق من تاريخ الإنتاج.", true);
     return;
   }
-
+ 
   inventoryMessage("جارٍ حفظ المادة...");
-
+ 
   try {
     const { data: duplicates, error: checkError } = await db
       .from("inventory_materials")
       .select("id")
       .eq("material_code", code)
       .limit(1);
-
+ 
     if (checkError) throw checkError;
-
+ 
     if (duplicates && duplicates.length > 0) {
       inventoryMessage(
         "رقم المادة مستخدم مسبقاً. استخدم رقماً مختلفاً.",
@@ -837,7 +898,7 @@ async function addInventoryMaterial() {
       );
       return;
     }
-
+ 
     const { error } = await db
       .from("inventory_materials")
       .insert({
@@ -851,16 +912,16 @@ async function addInventoryMaterial() {
         production_date: production || null,
         expiry_date: expiry || null
       });
-
+ 
     if (error) throw error;
-
+ 
     document.getElementById("newMaterialCode").value = "";
     document.getElementById("newMaterialName").value = "";
     document.getElementById("newMaterialQty").value = "0";
     document.getElementById("newMaterialBatch").value = "";
     document.getElementById("newMaterialProduction").value = "";
     document.getElementById("newMaterialExpiry").value = "";
-
+ 
     inventoryMessage("تم حفظ المادة بنجاح.");
     lastInventoryListTab = kind === "vaccine" ? "vaccines" : "drugs";
     showInventoryTab(lastInventoryListTab);
@@ -868,39 +929,39 @@ async function addInventoryMaterial() {
     inventoryMessage("فشل حفظ المادة: " + error.message, true);
   }
 }
-
+ 
 async function findIssueMaterial() {
   if (!db) {
     inventoryMessage("الاتصال بقاعدة البيانات غير جاهز.", true);
     return;
   }
-
+ 
   const code = document.getElementById("issueMaterialCode").value.trim();
   const info = document.getElementById("issueMaterialInfo");
   selectedInventoryMaterial = null;
   info.textContent = "";
-
+ 
   if (!code) {
     inventoryMessage("أدخل رقم المادة للبحث.", true);
     return;
   }
-
+ 
   inventoryMessage("جارٍ البحث عن المادة...");
-
+ 
   try {
     const { data, error } = await db
       .from("inventory_materials")
       .select("id, material_code, name, total_qty, issued_qty, kind")
       .eq("material_code", code)
       .limit(2);
-
+ 
     if (error) throw error;
-
+ 
     if (!data || data.length === 0) {
       inventoryMessage("لم يتم العثور على المادة.", true);
       return;
     }
-
+ 
     if (data.length > 1) {
       inventoryMessage(
         "يوجد أكثر من سجل بهذا الرقم. راجع أرقام المواد في المخزون.",
@@ -908,61 +969,61 @@ async function findIssueMaterial() {
       );
       return;
     }
-
+ 
     selectedInventoryMaterial = data[0];
-
+ 
     const item = data[0];
     const remaining =
       Number(item.total_qty || 0) - Number(item.issued_qty || 0);
-
+ 
     info.textContent =
       "المادة: " + item.name +
       " | الرصيد المتبقي: " + remaining;
-
+ 
     inventoryMessage("تم العثور على المادة.");
   } catch (error) {
     inventoryMessage("خطأ في البحث: " + error.message, true);
   }
 }
-
+ 
 async function issueInventoryMaterial() {
   if (!db) {
     inventoryMessage("الاتصال بقاعدة البيانات غير جاهز.", true);
     return;
   }
-
+ 
   if (!selectedInventoryMaterial) {
     inventoryMessage("ابحث عن المادة أولاً.", true);
     return;
   }
-
+ 
   const quantity = Number(
     document.getElementById("issueQuantity").value
   );
   const notes = document.getElementById("issueNotes").value.trim();
-
+ 
   if (!Number.isFinite(quantity) || quantity <= 0) {
     inventoryMessage("أدخل كمية صرف صحيحة أكبر من صفر.", true);
     return;
   }
-
+ 
   inventoryMessage("جارٍ تنفيذ الصرف...");
-
+ 
   try {
     const { data, error } = await db.rpc("issue_inventory_material", {
       p_material_id: selectedInventoryMaterial.id,
       p_quantity: quantity,
       p_notes: notes || null
     });
-
+ 
     if (error) throw error;
-
+ 
     const result = Array.isArray(data) ? data[0] : data;
-
+ 
     if (!result) {
       throw new Error("لم تُرجع قاعدة البيانات بيانات وصل الصرف.");
     }
-
+ 
     document.getElementById("receiptMovementId").textContent =
       result.movement_id ?? "";
     document.getElementById("receiptDate").textContent =
@@ -976,60 +1037,60 @@ async function issueInventoryMaterial() {
     document.getElementById("receiptRemaining").textContent =
       result.remaining_qty ?? "";
     document.getElementById("receiptNotes").textContent = notes || "—";
-
+ 
     document.getElementById("issueQuantity").value = "";
     document.getElementById("issueNotes").value = "";
-
+ 
     inventoryMessage("تم الصرف وتسجيل الحركة بنجاح.");
     await findIssueMaterial();
   } catch (error) {
     inventoryMessage("تعذّر الصرف: " + error.message, true);
   }
 }
-
+ 
 async function loadInventoryMovements() {
   if (!db) {
     inventoryMessage("الاتصال بقاعدة البيانات غير جاهز.", true);
     return;
   }
-
+ 
   const tbody = document.getElementById("inventoryMovementRows");
   tbody.innerHTML = "";
-
+ 
   inventoryMessage("جارٍ تحميل سجل الحركات...");
-
+ 
   try {
     const { data: movements, error } = await db
       .from("inventory_movements")
       .select("id, material_id, movement_type, quantity, notes, created_at")
       .order("created_at", { ascending: false })
       .limit(100);
-
+ 
     if (error) throw error;
-
+ 
     if (!movements || movements.length === 0) {
       inventoryMessage("لا توجد حركات مخزنية مسجلة.");
       return;
     }
-
+ 
     const ids = [...new Set(movements.map(m => m.material_id))];
     const { data: materials, error: materialsError } = await db
       .from("inventory_materials")
       .select("id, material_code, name")
       .in("id", ids);
-
+ 
     if (materialsError) throw materialsError;
-
+ 
     const materialMap = new Map(
       (materials || []).map(m => [String(m.id), m])
     );
-
+ 
     tbody.innerHTML = movements.map(m => {
       const item = materialMap.get(String(m.material_id));
       const date = m.created_at
         ? new Date(m.created_at).toLocaleString("en-GB")
         : "—";
-
+ 
       return `
         <tr>
           <td>${escapeInventoryHTML(date)}</td>
@@ -1039,23 +1100,25 @@ async function loadInventoryMovements() {
           <td>${escapeInventoryHTML(m.notes || "—")}</td>
         </tr>`;
     }).join("");
-
+ 
     inventoryMessage("تم تحميل " + movements.length + " حركة.");
   } catch (error) {
     inventoryMessage("تعذّر تحميل سجل الحركات: " + error.message, true);
   }
 }
-
+ 
 function printInventoryReceipt() {
   const receipt = document.getElementById("receiptMovementId").textContent;
-
+ 
   if (!receipt) {
     inventoryMessage("نفّذ عملية صرف ناجحة قبل طباعة الوصل.", true);
     return;
   }
-
-  window.print();
-}  async function startApp() {
+ 
+    window.print();
+}
+ 
+async function startApp() {
     if (SUPABASE_URL.includes("ضع_") ||
         SUPABASE_KEY.includes("ضع_")) {
       showMessage(
@@ -1064,36 +1127,36 @@ function printInventoryReceipt() {
       );
       return;
     }
-
+ 
     db = window.supabase.createClient(
       SUPABASE_URL, SUPABASE_KEY
     );
-
+ 
     const { data, error } = await db.auth.getSession();
     if (error) throw error;
-
+ 
     if (data.session) await showDashboard(data.session.user);
   }
-
+ 
   document.getElementById("loginButton").addEventListener(
     "click", async () => {
       if (!db) {
         showMessage("أكمل إعداد رابط المشروع والمفتاح العام أولاً.", true);
         return;
       }
-
+ 
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-
+ 
       if (!email || !password) {
         showMessage("أدخل البريد الإلكتروني وكلمة المرور.", true);
         return;
       }
-
+ 
       const button = document.getElementById("loginButton");
       button.disabled = true;
       showMessage("جارٍ تسجيل الدخول...");
-
+ 
       try {
         const { data, error } = await db.auth.signInWithPassword({
           email, password
@@ -1107,7 +1170,7 @@ function printInventoryReceipt() {
       }
     }
   );
-
+ 
   document.getElementById("logoutButton").addEventListener(
     "click", async () => {
       if (db) await db.auth.signOut();
@@ -1115,7 +1178,8 @@ function printInventoryReceipt() {
       showMessage("تم تسجيل الخروج.");
     }
   );
-
+ 
   startApp().catch(error => showMessage(error.message, true));
 </script>
-</body>
+ </body>
+</html>
