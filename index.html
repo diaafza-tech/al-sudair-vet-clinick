@@ -240,6 +240,121 @@ footer {
   .tile { padding: 18px 7px; font-size: 13px; }
   .panel { padding: 20px 16px; }
 }
+/* واجهات مستقلة لأقسام المخزون */
+#inventoryArea {
+  width: 100%;
+  min-height: 70vh;
+  padding: 22px;
+  margin: 16px auto;
+  border: 1px solid #31566c;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #10283b, #071725);
+  box-shadow: 0 16px 40px #0004;
+  color: #f4f8fc;
+}
+ 
+#inventoryArea > h2 {
+  text-align: center !important;
+  font-size: 24px;
+  padding: 12px 0 20px;
+  border-bottom: 1px solid #31566c;
+  color: #ffffff;
+}
+ 
+#inventoryArea > button.inv-action,
+#inventoryArea #inventoryBackButton {
+  width: 100%;
+  min-height: 48px;
+  margin: 10px 0;
+  border-radius: 12px;
+  font-weight: bold;
+}
+ 
+#inventoryArea .inv-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 100%;
+  margin: 20px 0;
+}
+ 
+#inventoryArea .inv-nav button {
+  min-height: 75px;
+  margin: 0;
+  white-space: normal;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #31566c;
+  border-right: 4px solid #20d6bd;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #1a4057, #102b3e);
+  color: #ffffff;
+  font-size: 15px;
+}
+ 
+#inventoryArea h3 {
+  padding: 14px;
+  margin: 20px 0 12px;
+  border-radius: 12px;
+  background: #17394e;
+  color: #76e7dc;
+}
+ 
+#inventoryArea .inv-grid {
+  gap: 14px;
+}
+ 
+#inventoryArea .inv-grid label {
+  color: #e1edf5;
+}
+ 
+#inventoryArea input,
+#inventoryArea select,
+#inventoryArea textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px;
+  background: #10283b;
+  color: #ffffff;
+  border: 1px solid #42647a;
+  border-radius: 10px;
+}
+ 
+#inventoryArea .inv-table-wrap {
+  margin-top: 16px;
+  border: 1px solid #31566c;
+  border-radius: 12px;
+}
+ 
+#inventoryArea .inv-table {
+  margin: 0;
+  border-spacing: 2px;
+}
+ 
+#inventoryArea .inv-table th {
+  background: #087e83;
+  color: #ffffff;
+}
+ 
+#inventoryArea .inv-table td {
+  background: #163348;
+  color: #ffffff;
+}
+ 
+#inventoryArea .inv-action {
+  background: linear-gradient(110deg, #087e83, #13a58e);
+  color: #ffffff;
+}
+ 
+@media (max-width: 480px) {
+  #inventoryArea {
+    padding: 12px;
+  }
+ 
+  #inventoryArea .inv-nav {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
  </head>
  <body>
@@ -360,13 +475,62 @@ footer {
     @page { size: A4; margin: 15mm; }
     }
     /* تصميم جدول الأدوية والمخزون */
+ 
 #inventoryArea {
-  background: #10283d !important;
-  color: #f1f5f9 !important;
-  border: 1px solid #29485e;
-  border-radius: 16px;
-  padding: 16px;
+  background:
+    radial-gradient(ellipse at top right, #174b5b 0%, transparent 45%),
+    linear-gradient(145deg, #0b1e30, #102d42 60%, #0b2232) !important;
+  color: #f1f7fb !important;
+  border: 1px solid #326075;
+  border-radius: 22px;
+  padding: 22px 18px;
+  margin-top: 14px;
+  box-shadow: 0 15px 40px #0004, inset 0 1px 0 #ffffff0c;
 }
+ 
+#inventoryArea > h2 {
+  font-size: 24px;
+  line-height: 1.8;
+  text-align: center !important;
+  margin: 8px 0 5px;
+  color: #ffffff;
+}
+ 
+#inventoryArea > h2::after {
+  content: "";
+  display: block;
+  width: 75px;
+  height: 3px;
+  margin: 8px auto 18px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #08d9f5, #38f58b);
+  box-shadow: 0 0 12px #08d9f555;
+}
+ 
+#inventoryArea > button.inv-action:first-of-type {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin: 12px 0 20px;
+  border: 1px solid #268f91;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #087e83, #119c8c);
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px #0003;
+}
+ 
+#inventoryArea > button.inv-action:first-of-type:hover {
+  filter: brightness(1.12);
+}
+ 
+#inventoryArea h3 {
+  color: #76e7dc;
+  font-size: 19px;
+  margin: 22px 0 14px;
+}
+ 
  
  
 #inventoryArea .inv-nav {
@@ -380,30 +544,37 @@ footer {
   box-sizing: border-box;
 }
  
+ 
 #inventoryArea .inv-nav button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  min-height: 54px;
+  min-height: 62px;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #193b52, #24566b);
-  color: #ffffff;
-  border: 1px solid #42647a;
-  border-radius: 12px;
-  padding: 14px 18px;
+  background: linear-gradient(115deg, #18394e, #204b60);
+  color: #f5fbff;
+  border: 1px solid #3b6175;
+  border-right: 4px solid #18cbb4;
+  border-radius: 14px;
+  padding: 15px 17px;
   text-align: right;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 5px 14px #0002;
+  transition: background .2s, border-color .2s, transform .2s;
 }
  
 #inventoryArea .inv-nav button:hover {
-  background: #176b68;
+  background: linear-gradient(115deg, #175565, #176b68);
+  border-color: #47d9c5;
 }
  
 #inventoryArea .inv-nav button:active {
-  transform: scale(0.98);
+  transform: scale(.985);
 }
+ 
  
  
 #inventoryArea .inv-table {
@@ -491,7 +662,7 @@ footer {
      <div class="tile" onclick="openInventoryMovements()">📊 سجل المخزون</div>
     </div>
     <div id="inventoryArea" class="inv-panel inv-hidden">
-     <h2>💊 إدارة الأدوية واللقاحات</h2>
+     <h2 id="inventoryPageTitle">💊 إدارة الأدوية واللقاحات</h2>
      <button class="inv-action" onclick="closeInventory()">↩ العودة إلى الرئيسية</button>
      <div class="inv-nav inv-nav-vertical">
       <button onclick="showInventoryTab('drugs')">💊 الأدوية</button>
@@ -502,7 +673,7 @@ footer {
      </div>
      <button id="inventoryBackButton" class="inv-action inv-hidden" onclick="showInventoryMenu()">↩ رجوع إلى الأقسام</button>
      <div id="inventoryStatus" class="inv-status"></div>
-     <div id="inventoryListTab">
+     <div id="inventoryListTab" class="inv-hidden">
       <h3 id="inventoryListTitle">المواد المخزونة</h3>
       <button class="inv-action" onclick="loadInventory()">تحديث القائمة</button>
       <div class="inv-table-wrap">
@@ -543,6 +714,7 @@ footer {
      </div>
      <div id="inventoryMovementsTab" class="inv-hidden">
       <h3>سجل حركات المخزون</h3>
+      <button class="inv-action no-print" onclick="printInventoryMovements()">🖨️ طباعة سجل الحركات</button>
       <button class="inv-action" onclick="loadInventoryMovements()">تحديث السجل</button>
       <div class="inv-table-wrap">
        <table class="inv-table">
@@ -755,7 +927,16 @@ function showInventoryMenu() {
  
 function showInventoryTab(tab) {
   selectedInventoryTab = tab;
+const pageTitles = {
+  drugs: "💊 الأدوية والمخزون",
+  vaccines: "💉 إدارة اللقاحات",
+  add: "➕ إضافة مادة جديدة",
+  issue: "📤 صرف المواد المخزنية",
+  movements: "📋 سجل الحركات المخزنية"
+};
  
+document.getElementById("inventoryPageTitle").textContent =
+  pageTitles[tab] || "إدارة المخزون";
   const ids = {
     drugs: "inventoryListTab",
     vaccines: "inventoryListTab",
@@ -779,7 +960,8 @@ function showInventoryTab(tab) {
  
   document.getElementById("inventoryBackButton")
     ?.classList.remove("inv-hidden");
- 
+document.getElementById("inventoryArea")
+  .scrollIntoView({ behavior: "smooth", block: "start" });
   if (tab === "drugs" || tab === "vaccines") {
     lastInventoryListTab = tab;
  
@@ -1180,6 +1362,78 @@ async function startApp() {
   );
  
   startApp().catch(error => showMessage(error.message, true));
+function printInventoryMovements() {
+  const section = document.getElementById("inventoryMovementsTab");
+  if (!section) return;
+ 
+  const win = window.open("", "_blank");
+  if (!win) {
+    alert("اسمح بفتح النوافذ المنبثقة حتى تتمكن من الطباعة");
+    return;
+  }
+ 
+  win.document.write(`
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+      <meta charset="UTF-8">
+      <title>سجل حركات المخزون - مستوصف السدير البيطري</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          direction: rtl;
+          margin: 15mm;
+          color: #172b3a;
+        }
+        h2 {
+          text-align: center;
+          margin-bottom: 6px;
+        }
+        p {
+          text-align: center;
+          margin-top: 0;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 18px;
+          font-size: 12px;
+        }
+        th, td {
+          border: 1px solid #555;
+          padding: 7px 5px;
+          text-align: center;
+          overflow-wrap: anywhere;
+        }
+        th {
+          background: #dce9f2;
+          color: #12344d;
+        }
+        @page {
+          size: A4 landscape;
+          margin: 10mm;
+        }
+        @media print {
+          body { margin: 0; }
+          tr { break-inside: avoid; }
+        }
+      </style>
+    </head>
+    <body>
+      <h2>مستوصف السدير البيطري</h2>
+      <p>سجل حركات الأدوية واللقاحات والمخزون</p>
+      ${section.querySelector("table")?.outerHTML || "<p>لا يوجد جدول للطباعة</p>"}
+      <script>
+        window.onload = function() {
+          window.print();
+        };
+      <\/script>
+    </body>
+    </html>
+  `);
+ 
+  win.document.close();
+}
 </script>
  </body>
 </html>
